@@ -1,4 +1,4 @@
-# Polln't
+# PollPolice
 
 A simple Discord bot to prevent users from sending polls in a Discord server, because Discord made a fun decision and tied the creation of polls to the SEND_MESSAGES permission.
 
