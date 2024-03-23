@@ -26,13 +26,17 @@ client.on(Events.Raw, async (packet) => {
       return;
     }
     // We grab the message based on the data provided in the raw event, as we will be deleting it.
-    const message = await channel.messages.fetch(packet.d.id);
+    const message = await channel.messages.fetch(packet.d.id).catch(() => {
+      console.log("Message not found");
+    });
 
     // The message exists, we then delete it and send a message to the channel.
     if (message) {
-      await message.reply(
-        `${message.author}, polls are not allowed in this server.`
-      );
+      await message
+        .reply(`${message.author}, polls are not allowed in this server.`)
+        .catch((err) => {
+          console.log("Error replying to message: ", err);
+        });
       await message.delete().catch((err) => {
         console.log("Error deleting message: ", err);
       });
