@@ -1,5 +1,7 @@
 # PollPolice
 
+➡️ [Invite the live version of the bot here](https://go.buape.com/PollPolice) ⬅️
+
 A simple Discord bot to prevent users from sending polls in a Discord server, because Discord made a fun decision and tied the creation of polls to the SEND_MESSAGES permission.
 
 It is not meant to be customizable, all it does it checks for polls and deletes them, and notifies the poll creator that polls aren't allowed in this server.
