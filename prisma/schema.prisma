@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgres"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
@@ -17,6 +17,9 @@ model Guild {
   id      String  @id
   name    String?
   ownerId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // For now, the user mention at the start of the message is static and can not be changed.
   // - <@USER>, <notifyUserPostDeleteMessage>
@@ -34,6 +37,9 @@ model ExemptRole {
   guildId String
   guild   Guild  @relation(fields: [guildId], references: [id])
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([roleId, guildId])
   @@index([roleId])
 }
@@ -43,6 +49,9 @@ model ExemptChannel {
   channelId  String
   guildId    String
   guild      Guild  @relation(fields: [guildId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([channelId, guildId])
   @@index([channelId])
