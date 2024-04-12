@@ -4,7 +4,7 @@ const db = new PrismaClient()
 
 // Guild Functions
 export const createGuild = async (guildId: string, guildName: string, guildOwnerId: string) => {
-    await db.guild.upsert({
+    return await db.guild.upsert({
         where: {
             id: guildId
         },
@@ -13,6 +13,10 @@ export const createGuild = async (guildId: string, guildName: string, guildOwner
             id: guildId,
             name: guildName,
             ownerId: guildOwnerId
+        },
+        include: {
+            exemptRoles: true,
+            exemptChannels: true
         }
     })
 }

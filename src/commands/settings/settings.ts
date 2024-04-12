@@ -16,8 +16,7 @@ const command: ChatInputCommand = {
     global: true,
     execute: async (_client, interaction) => {
         if (!interaction.guild || !interaction.inCachedGuild()) return;
-        const guildSettings = await getGuild(interaction.guildId);
-        if (!guildSettings) await createGuild(interaction.guildId, interaction.guild.name, interaction.guild.ownerId);
+        const guildSettings = await createGuild(interaction.guildId, interaction.guild.name, interaction.guild.ownerId);
         const embed = new EmbedBuilder()
         .setTitle(i18n(interaction.guildLocale, 'settings-embed-title'))
         .setDescription(i18n(interaction.guildLocale, 'settings-embed-description'))

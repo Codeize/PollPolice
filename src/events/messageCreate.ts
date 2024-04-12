@@ -35,12 +35,18 @@ const event: Event = {
 				await (message as Message).delete().catch((err) => {
 					return console.log("Error deleting message: ", err);
 				});
-				if (guildSettings?.notifyUserPostDelete)
-					await message
+				if (guildSettings?.notifyUserPostDelete) {
+					const msg = await message
 						.channel.send(`<@${messageAuthorMember.user.id}>, ${guildSettings.notifyUserPostDeleteMessage}`)
 						.catch((err) => {
 							console.log("Error replying to message: ", err);
 						});
+					setTimeout(() => {
+						msg?.delete().catch(() => {
+							console.log("Error deleting reply message");
+						});
+					}, 5000);
+				}
 				await createDiscordLog("Poll Message Deleted", `Guild ID: ${guild.id}\nGuild Name: ${guild.name}`, guild.iconURL() ?? "")
 			}
 		}
