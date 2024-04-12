@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model Guild {
+  id      String  @id
+  name    String?
+  ownerId String?
+
+  // For now, the user mention at the start of the message is static and can not be changed.
+  // - <@USER>, <notifyUserPostDeleteMessage>
+  notifyUserPostDeleteMessage String? @default("polls are not allowed in this server.")
+
+  logChannelId         String?
+  notifyUserPostDelete Boolean     @default(true)
+  exemptRoles          ExemptRole[]
+  exemptChannels       ExemptChannel[]
+}
+
+model ExemptRole {
+  id      String @id @default(cuid())
+  roleId  String
+  guildId String
+  guild   Guild  @relation(fields: [guildId], references: [id])
+
+  @@unique([roleId, guildId])
+  @@index([roleId])
+}
+
+model ExemptChannel {
+  id         String @id @default(cuid())
+  channelId  String
+  guildId    String
+  guild      Guild  @relation(fields: [guildId], references: [id])
+
+  @@unique([channelId, guildId])
+  @@index([channelId])
+}

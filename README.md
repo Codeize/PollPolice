@@ -2,20 +2,34 @@
 
 ➡️ [Invite the live version of the bot here](https://go.buape.com/PollPolice) ⬅️
 
-A simple Discord bot to prevent users from sending polls in a Discord server, because Discord made a fun decision and tied the creation of polls to the SEND_MESSAGES permission.
+PollPolice prevents certain server members from sending the newly released polls feature on Discord.
 
-It is not meant to be customizable, all it does it checks for polls and deletes them, and notifies the poll creator that polls aren't allowed in this server.
+## Features
 
-The code is also not pretty at all, but that's because the API support for polls is a work in progress still.
+- Customizable role(s) to be exempt from the poll restriction
+- Customizable channel(s) to be exempt from the poll restriction
+- Customizable message to notify the poll creator that their poll was deleted
+- Supports internationalization; matching the 'preferred locale' of your community (Server Settings -> Community (Overview) -> Server Primary Language)
+  - Currently supports English, Spanish, French and German. Start an issue or [join our Discord](https://go.buape.com/Discord) to request more languages!
 
 ## Usage
 
-Poll create -> Poll delete -> Poll creator notified
-(The bot must have the MANAGE_MESSAGES permission to delete the poll message and the SEND_MESSAGES permission to notify the poll creator)
+1. Invite the bot to your server
+2. Run `/settings` to configure PollPolice to suit your community's needs
+3. Enjoy a (semi) poll-free server!
 
 ## Installation
 
 1. Clone the repository
-2. Install the requirements with `npm i`
+2. Install the requirements with `bun install`
 3. Create a `.env` file based on the `.env.example` file
-4. Run the bot with `node .`
+4. Push the database schema with `bun db:push`
+5. Run the bot with `bun start:bot`
+
+## Contributing
+
+All contributions are welcome!
+
+## Check out my other stuff
+
+- [Buape](https://buape.com)
