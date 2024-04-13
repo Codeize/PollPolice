@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Guild {
-  id      String  @id
+  id      String  @id @unique
   name    String?
   ownerId String?
 
@@ -26,7 +26,7 @@ model Guild {
   notifyUserPostDeleteMessage String? @default("polls are not allowed in this server.")
 
   logChannelId         String?
-  notifyUserPostDelete Boolean     @default(true)
+  notifyUserPostDelete Boolean         @default(true)
   exemptRoles          ExemptRole[]
   exemptChannels       ExemptChannel[]
 }
@@ -45,10 +45,10 @@ model ExemptRole {
 }
 
 model ExemptChannel {
-  id         String @id @default(cuid())
-  channelId  String
-  guildId    String
-  guild      Guild  @relation(fields: [guildId], references: [id])
+  id        String @id @default(cuid())
+  channelId String
+  guildId   String
+  guild     Guild  @relation(fields: [guildId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
