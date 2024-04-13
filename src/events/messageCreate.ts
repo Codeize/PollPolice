@@ -1,7 +1,7 @@
 import { ClientEvents, Events, Message } from 'discord.js';
 import { Event } from '../interfaces';
 import { getGuild } from '../database';
-import { createDiscordLog } from '../bot';
+import { createDiscordLog, createServerLog } from '../bot';
 
 const event: Event = {
     name: Events.Raw as keyof ClientEvents,
@@ -46,6 +46,7 @@ const event: Event = {
                         });
                     }, 5000);
                 }
+                if (guildSettings?.logChannelId) await createServerLog(client, guildSettings.logChannelId, 'Poll Message Deleted', `Author: <@${messageAuthorMember.user.id}> (${messageAuthorMember.user.id})\nChannel: <#${message.channel.id}> (${message.channel.id})`, messageAuthorMember.user.displayAvatarURL());
                 await createDiscordLog('Poll Message Deleted', `Guild ID: ${guild.id}\nGuild Name: ${guild.name}`, guild.iconURL() ?? '');
             }
         }

@@ -1,4 +1,4 @@
-import { DiscordjsError, GatewayIntentBits as Intents, Partials, WebhookClient } from 'discord.js';
+import { DiscordjsError, EmbedBuilder, GuildTextBasedChannel, GatewayIntentBits as Intents, Partials, WebhookClient } from 'discord.js';
 import ExtendedClient from './classes/Client';
 import { config } from 'dotenv';
 
@@ -43,3 +43,21 @@ export const createDiscordLog = async (title: string, message: string, iconURL?:
     });
     webhook.destroy();
 };
+
+export const createServerLog = async (client: ExtendedClient, channelId: string, title: string, message: string, userIconURL?: string) => {
+    const channel = await client.channels.fetch(channelId).catch(() => {
+        return console.log('Log channel not found');
+    });
+    if (!channel || !channel.isTextBased()) {
+        console.log('Channel not found');
+        return;
+    }
+    const embed = new EmbedBuilder()
+        .setTitle(title)
+        .setDescription(message)
+        .setThumbnail(userIconURL ?? '')
+        .setColor('Random');
+    await channel.send({
+        embeds: [embed]
+    });
+}

@@ -7,7 +7,7 @@ const modalSubmit: StringSelectMenu = {
     name: 'settings_chooseOption',
     execute: async (_client, interaction) => {
         if (!(interaction.user.id === interaction.message.interaction?.user.id)) return;
-        if (!interaction.guild || !interaction.inCachedGuild() || interaction.guildId) return;
+        if (!interaction.guild || !interaction.inCachedGuild() || !interaction.guildId) return;
         const guildSettings = await getGuild(interaction.guildId);
         const value = interaction.values[0];
         switch (value) {
