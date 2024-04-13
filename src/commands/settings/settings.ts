@@ -16,6 +16,7 @@ const command: ChatInputCommand = {
     global: true,
     execute: async (_client, interaction) => {
         if (!interaction.guild || !interaction.inCachedGuild()) return;
+        await interaction.deferReply();
         const guildSettings = await createGuild(interaction.guildId, interaction.guild.name, interaction.guild.ownerId);
         const embed = new EmbedBuilder()
             .setTitle(i18n(interaction.guildLocale, 'settings-embed-title'))
@@ -95,7 +96,7 @@ const command: ChatInputCommand = {
                 .setURL('https://go.buape.com/pollpolice'),
         ]);
 
-        await interaction.reply({ embeds: [embed], components: [row, upsellRow] });
+        await interaction.editReply({ embeds: [embed], components: [row, upsellRow] });
     },
 };
 export default command;
