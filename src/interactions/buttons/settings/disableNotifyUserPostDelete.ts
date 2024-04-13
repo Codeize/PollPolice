@@ -9,7 +9,7 @@ const button: Button = {
         await setNotifyUserPostDelete(interaction.guildId, false).catch(() => {
             interaction.reply({ content: i18n(interaction.guild.preferredLocale, 'error'), ephemeral: true });
         });
-        await interaction.reply({ content: i18n(interaction.guild.preferredLocale, 'settings-select-option-notifyUserPostDelete-success', { value: "false" }), ephemeral: true });
+        await interaction.reply({ content: i18n(interaction.guild.preferredLocale, 'settings-select-option-notifyUserPostDelete-success', { value: 'false' }), ephemeral: true });
     },
 };
 
