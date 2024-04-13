@@ -6,14 +6,14 @@ import { Locale, LocaleString } from 'discord.js';
 const langDir = '../../lang',
     fallbackLang = Locale.EnglishUS,
     globalConf = new FluentResource(readFileSync(path.join(__dirname, langDir, 'resources', 'global.ftl'), { encoding: 'utf-8' })),
-    langs : {
-        [key:string]: FluentBundle
+    langs: {
+        [key: string]: FluentBundle
     } = {};
 
-const supportedfiles = readdirSync(path.join(__dirname, langDir)).filter(s => s.endsWith('.ftl')),
-    supportedLang = supportedfiles.map(file => file.split('.')[0]) as LocaleString[];
-supportedfiles.forEach(lang => {
-    const bundle = new FluentBundle(lang.slice(0, -4), { useIsolating:false });
+const supportedFiles = readdirSync(path.join(__dirname, langDir)).filter(s => s.endsWith('.ftl'));
+const supportedLang = supportedFiles.map(file => file.split('.')[0]) as LocaleString[];
+supportedFiles.forEach(lang => {
+    const bundle = new FluentBundle(lang.slice(0, -4), { useIsolating: false });
     bundle.addResource(globalConf);
     const errors = bundle.addResource(new FluentResource(readFileSync(path.join(__dirname, langDir, lang), { encoding: 'utf-8' })));
     if (errors.length) {
@@ -24,14 +24,14 @@ supportedfiles.forEach(lang => {
 });
 
 /**
- * gets key for the given locale
+ * Get a translated string by key
  *
- * @param lang langugage from wich to try and get the key from
- * @param key value to resolved to string
- * @param options veribales to insert in to the string
- * @returns the desiered sting or fallback sting
+ * @param lang The language to try and get the key from
+ * @param key The key to resolve
+ * @param options Variables to insert into the string
+ * @returns The desired string, or a fallback string
  */
-export default function i18n(lang:Locale | LocaleString, key:string, options?: Record<string, FluentVariable>): string {
+export default function i18n(lang: Locale | LocaleString, key: string, options?: Record<string, FluentVariable>): string {
 
     const bundle = langs[lang];
     if (!bundle) {
@@ -46,7 +46,7 @@ export default function i18n(lang:Locale | LocaleString, key:string, options?: R
         return `{{${key}}}`;
     }
 
-    const errors : Error[] = [],
+    const errors: Error[] = [],
         res = bundle.formatPattern(msg.value, options, errors);
     if (errors.length) {
         console.warn(`[Error] i18n - Errors with ${key}`);
@@ -57,13 +57,13 @@ export default function i18n(lang:Locale | LocaleString, key:string, options?: R
     return res;
 }
 /**
- * generates object from for command/context menu localization
- * @param key value to resolve
- * @param options veribales to insert in to the string
- * @returns record mad of all supported languages
+ * Generates a translated object from for command/context menu localization
+ * @param key The key to resolve
+ * @param options Variables to insert into the string
+ * @returns Record made of all supported languages
  */
-export function localization(key: string, options?: Record<string, FluentVariable>):Partial<Record<LocaleString, string>> {
-    const res:Partial<Record<LocaleString, string>> = {};
+export function localization(key: string, options?: Record<string, FluentVariable>): Partial<Record<LocaleString, string>> {
+    const res: Partial<Record<LocaleString, string>> = {};
     supportedLang.forEach((lang) => {
         res[lang] = i18n(lang, key, options);
     });
