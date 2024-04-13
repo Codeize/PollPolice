@@ -15,7 +15,8 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:reset": "prisma migrate reset --force",
-    "db:format": "prisma format"
+    "db:format": "prisma format",
+    "format": "eslint --fix ."
   },
   "repository": {
     "type": "git",

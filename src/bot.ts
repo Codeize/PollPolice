@@ -1,4 +1,4 @@
-import { DiscordjsError, GatewayIntentBits as Intents, Options, Partials, WebhookClient } from 'discord.js';
+import { DiscordjsError, GatewayIntentBits as Intents, Partials, WebhookClient } from 'discord.js';
 import ExtendedClient from './classes/Client';
 import { config } from 'dotenv';
 
@@ -33,13 +33,13 @@ new ExtendedClient({
     });
 
 const webhook = new WebhookClient({ url: process.env.LOGGING_WEBHOOK_URL as string });
-export const createDiscordLog = async(title: string, message: string, iconURL?: string) => {
+export const createDiscordLog = async (title: string, message: string, iconURL?: string) => {
     await webhook.send({
         embeds: [{
             title: title,
             description: message,
-            thumbnail: { url: iconURL ?? "" },
+            thumbnail: { url: iconURL ?? '' },
         }],
     });
     webhook.destroy();
-}
+};
