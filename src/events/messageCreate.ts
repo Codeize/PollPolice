@@ -14,7 +14,11 @@ const event: Event = {
                 console.log('Channel not found');
                 return;
             }
-            const messageAuthorMember = await guild.members.fetch(packet.d.author.id);
+            const messageAuthorMember = await guild.members.fetch(packet.d.author.id).catch(() => {
+                console.log('Member not found');
+                return;
+            });
+            if (!messageAuthorMember) return;
             const message = await channel.messages.fetch(packet.d.id).catch(() => {
                 console.log('Message not found');
             });
