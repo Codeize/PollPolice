@@ -1,6 +1,9 @@
 # PollPolice
 
-➡️ [Invite the live version of the bot here](https://go.buape.com/PollPolice) ⬅️
+> [!WARNING]  
+> As [Discord have rolled out the permission for restricting the usage of polls](https://support.discord.com/hc/en-us/articles/22163184112407-Polls-FAQ#h_01HVSGXPCG8PK498N68J129SQH) PollPolice no longer serves a wide-spread purpose, and is now offline.
+>
+> This source code will remain publicly available in case somebody wishes to self-host it, or wishes to see how I implemented its functionality. Thanks for supporting the bot while it was live, and I am happy to have provided the service Discord failed to.
 
 PollPolice prevents certain server members from sending the newly released polls feature on Discord.
 
@@ -26,9 +29,9 @@ PollPolice prevents certain server members from sending the newly released polls
 4. Push the database schema with `bun db:push`
 5. Run the bot with `bun start:bot`
 
-## Contributing
+## License
 
-All contributions are welcome!
+[MIT](https://opensource.org/license/mit)
 
 ## Check out my other stuff
 
